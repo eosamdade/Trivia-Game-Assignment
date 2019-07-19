@@ -37,29 +37,89 @@ var questions = [
 ];
 
 
-var index = 0
+var index = -1
 var rightAnswers = 0;
 var wrongAnswers =0;
+var unanswered = 0;
 var timer = 20;
 
+//start timer
+var time = 20;
+var intervalId;
+var timeRunning = false;
+
+//reset
+$("#reset").hide()
 
 // directly bound event
 $('#start').on('click', function(){
     rightAnswers = 0
     wrongAnswers = 0
-    displayNextQuestion();
-    
-    // hide start button
+    //hide start button
     $('#start').hide();
 
+    //display questions
+    displayNextQuestion();
+
     //start timer
+    runTime();
+    
+    // hide start button
+    $('#question').show();
+    $('#choices').show();
+    
 
 })
 
+//time start
+function runTime () {
+    if(!timeRunning) {
+        intervalId = setInterval(decrement,1000);
+        timeRunning = true;
+    }
+}
+
+//time decrement
+function decrement () {
+    time --;
+
+    //show time in the html
+    $("#timer").html(`<p>${time} sec</p>`)
+
+    //when time = 0; time run out
+    if (time === 0) {
+        unanswered ++;
+        stop();
+        timeout();
+        console.log(unanswered);
+    }
+
+
+}
+
+//stop time
+
+function stop() {
+    timeRunning = false;
+    clearInterval(intervalId);
+    // $("#timer").empty();
+}
+
+function timeout () {
+    // $("#question").empty();
+    // $("#choices").empty();
+    $("#timer").html(`<p>Time is Up</p>`)
+    time = 20;
+    displayNextQuestion();
+}
+
 
 function displayNextQuestion(){
+    
+    //increase question index by 1
+    index++;
     // show first question
-    $('#question').html(questions[index].question)
+    $('#question').html(questions[index].question);
 
 
     // empty choice div
@@ -69,8 +129,12 @@ function displayNextQuestion(){
 
     // show first question choices
     for (let i = 0; i < questions[index].choices.length; i++) {
-        $('#choices').append(`<button class="choice">${questions[index].choices[i]}</button>`)    
+        $('#choices').append(`<div class="choice">${questions[index].choices[i]}</div>`)    
     }
+    
+    time = 20;
+    runTime();
+    
 }
 
 
@@ -82,29 +146,34 @@ $('body').on('click','.choice', function(){
     console.log(questions[index].answer);
     // check if right or wrong
     if(selectedChoice === questions[index].answer){
-        alert('you are right');
+        stop();
+        $("#timer").empty();
+        console.log('you are right');
         //$("#response").html('<h2>you are right</h2>');
         // if right increment rightAnswers
         rightAnswers ++;
         
 
     } else {
-        alert('you are wrong')
+        stop();
+        console.log('you are wrong');
         // if wrong decrement wrongAnswers
         wrongAnswers ++;
     };
 
-    index++;
+    
 
-    if(index < 5){
+    if(index < 4){
         displayNextQuestion();
-    } else {
+    } 
+    else {
         // game over
-        alert('game over')
+        console.log('game over')
         // hide questions and choices
         // show end results
-        $("#score").append(`CORRECT ANSWERS :<p>${rightAnswers}</p>`);
-        $("#score").append(`WRONG ANSWERS :<p>${wrongAnswers}</p>`);
+        $("#score").append(`CORRECT ANSWERS <p>${rightAnswers}</p>`);
+        $("#score").append(`WRONG ANSWERS <p>${wrongAnswers}</p>`);
+        $("#score").append(`UNANSWERED QUESTIONS <p>${unanswered}</p>`);
         // rightAnswers = 0
         // wrongAnswers = 0
         // show start
@@ -114,10 +183,26 @@ $('body').on('click','.choice', function(){
         $('#question').hide();
         $('#choices').hide();
         
-        //hide choices
+        //show reset button
+        $("#reset").show()
+
+        //hide time
+        $("#time").hide()
     };
     
 })
+
+$("#reset").on("click",function(){
+    $("#reset").hide();
+    $("#score").empty();
+    $("#start").show();
+    index=0;
+})
+
+
+
+
+
 
 // move to next question
 
@@ -133,3 +218,6 @@ $('body').on('click','.choice', function(){
 
 // timer
 // giphy for right wrongs
+
+
+//empty results
