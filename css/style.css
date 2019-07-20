@@ -49,6 +49,11 @@ body {
     cursor: pointer;
     text-align: center;
 }
+.choice:hover{
+    border: 2px solid green;
+    background-color: white;
+    color:black;
+}
 .reset {
     color:green;
     position: relative;
@@ -68,10 +73,14 @@ body {
     position: relative;
     top: 400px;
     text-align: center;
-    font-family: monospace;
+    font-family: 'Sanchez', serif;
     font-size: 24px;
     /* color: green; */
     font-weight: lighter;
     border: 2px soild white;
+}
+.response {
+    color:white;
+    font-family: 'Sanchez', serif; 
 }
 
