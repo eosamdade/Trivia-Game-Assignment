@@ -108,12 +108,17 @@ function stop() {
 function timeout () {
     $("#timer").html(`<p>Time is Up</p>`)
     time = 20;
-    displayNextQuestion();
+   setTimeout(displayNextQuestion,2000); 
 }
 
 
+
+
 function displayNextQuestion(){
-    
+    //show questions
+    $('#question').show()
+    //empty response
+    $("#response").empty();
     //increase question index by 1
     index++;
     // show first question
@@ -121,14 +126,15 @@ function displayNextQuestion(){
 
     // empty choice div
     $('#choices').empty();
-    // $('#response').empty();
 
     // show first question choices
     for (let i = 0; i < questions[index].choices.length; i++) {
-        $('#choices').append(`<div class="choice">${questions[index].choices[i]}</div>`)    
-    }
+        $('#choices').append(`<div class="choice">${questions[index].choices[i]}</div>`)  
+    };
     
+    //reset imer to 20
     time = 20;
+    //run time
     runTime();   
 }
 
@@ -145,14 +151,18 @@ $('body').on('click','.choice', function(){
         stop();
         $("#timer").empty();
         console.log('you are right');
+
+        $("#choices").empty();
+        $('#question').hide()
         
-        //$("#response").html('<h2>you are right</h2>');
+        $("#response").html('<h2>you are right</h2>');
         
         // if right increment rightAnswers
         rightAnswers ++;
         
     } else {
         stop();
+        $("#response").html('<h2>you are wrong</h2>');
         console.log('you are wrong');
         // if wrong decrement wrongAnswers
         wrongAnswers ++;
@@ -160,20 +170,20 @@ $('body').on('click','.choice', function(){
 
     
     if(index < 4){
-        displayNextQuestion();
+        setTimeout(displayNextQuestion,2000);
     } 
     else {
+        //empty response
+        $("#response").empty();
+        
         // game over
-        console.log('game over')
-        // hide questions and choices
+        console.log('game over');
+        
         // show end results
         $("#score").append(`CORRECT ANSWERS <p>${rightAnswers}</p>`);
         $("#score").append(`WRONG ANSWERS <p>${wrongAnswers}</p>`);
         $("#score").append(`UNANSWERED QUESTIONS <p>${unanswered}</p>`);
-        // rightAnswers = 0
-        // wrongAnswers = 0
-        // show start
-        //$('#start').show();
+        
 
         //hide questions
         $('#question').hide();
@@ -195,10 +205,10 @@ $("#reset").on("click",function(){
     index=0;
 })
 
-function showPic(time,respo){
+// function showPic(time,respo){
 
 
-}
+// }
 
 //show pic if ans is wrigh or wrong
 
