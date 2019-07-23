@@ -81,6 +81,17 @@ body {
 }
 .response {
     color:white;
-    font-family: 'Sanchez', serif; 
+    font-family: 'Sanchez', serif;
+    width: 30%;
+    position: relative;
+    left: 35%; 
+    text-align: center;
+    font-size: 24px;
+    top:200px;
+}
+.giphy {
+    position: relative;
+    top:200px;
+    left: 35%;
 }
 

@@ -3,29 +3,29 @@ var questions = [
         question:"How many hearts do octopuses have?",
         choices: ["One","Two","Three","Four"],
         answer: "Three",
-        rightPhoto: "",
-        wrongPhoto: ""
+        rightPhoto: "https://media.giphy.com/media/lnyPptAfGwHeTdoQDk/giphy.gif",
+        wrongPhoto: "https://media.giphy.com/media/Jsmhn6ZHIWjl1Zd5Gn/giphy.gif"
     },
     {
         question:" Who was the second man to walk on the moon?",
         choices: ["Buzz Aldrin","Niel Armstrong","Michael Collins","Elon Musk"],
         answer: "Buzz Aldrin",
-        rightPhoto: "",
-        wrongPhoto: ""
+        rightPhoto: "https://media.giphy.com/media/dTX3ONYXGIBTyKikDt/giphy.gif",
+        wrongPhoto: "https://media.giphy.com/media/fXWTLHq8lpKCQyQ2dF/giphy.gif"
     },
     {
         question:"What is the largest lake in Africa?",
         choices: ["Lake Malawi","Lake Victoria","Lake Natron","Peru"],
         answer: "Lake Victoria",
-        rightPhoto: "",
-        wrongPhoto: ""
+        rightPhoto: "https://media.giphy.com/media/135sKwOV5uCpCo/giphy.gif",
+        wrongPhoto: "https://media.giphy.com/media/12asjkJxOCg9mE/giphy.gif"
     },
     {
         question:"Which African country used to be called Abyssinia?",
         choices: ["South Africa","Nigeria","Ethiopia","Ghana"],
-        answer: "Algeria",
-        rightPhoto: "",
-        wrongPhoto: ""
+        answer: "Ethiopia",
+        rightPhoto: "https://media.giphy.com/media/yV5iknckcXcc/giphy.gif",
+        wrongPhoto: "https://media.giphy.com/media/TXgBQoz79pxMQ/giphy.gif"
     },
     {
         question:"Who developed the special theory of relativity?",
@@ -111,14 +111,12 @@ function timeout () {
    setTimeout(displayNextQuestion,2000); 
 }
 
-
-
-
 function displayNextQuestion(){
     //show questions
     $('#question').show()
-    //empty response
+    //empty response and giphy
     $("#response").empty();
+    $("#giphy").empty();
     //increase question index by 1
     index++;
     // show first question
@@ -138,7 +136,6 @@ function displayNextQuestion(){
     runTime();   
 }
 
-
 // click event for each choice
 // delegated event
 $('body').on('click','.choice', function(){
@@ -155,14 +152,22 @@ $('body').on('click','.choice', function(){
         $("#choices").empty();
         $('#question').hide()
         
-        $("#response").html('<h2>you are right</h2>');
+        $("#response").html('<h2>Correct!</h2>');
+        $("#giphy").html(`<img src="${questions[index].rightPhoto}" alt="giphy">`)
         
         // if right increment rightAnswers
         rightAnswers ++;
         
     } else {
         stop();
-        $("#response").html('<h2>you are wrong</h2>');
+
+        $("#timer").empty();
+
+        $("#choices").empty();
+        $('#question').hide()
+        
+        $("#response").html('<h2>Wrong Answer!</h2>');
+        $("#giphy").html(`<img src="${questions[index].wrongPhoto}" alt="giphy">`)
         console.log('you are wrong');
         // if wrong decrement wrongAnswers
         wrongAnswers ++;
@@ -170,12 +175,12 @@ $('body').on('click','.choice', function(){
 
     
     if(index < 4){
-        setTimeout(displayNextQuestion,2000);
+        setTimeout(displayNextQuestion,3000);
     } 
     else {
         //empty response
         $("#response").empty();
-        
+        $("giphy").empty();
         // game over
         console.log('game over');
         
@@ -204,29 +209,3 @@ $("#reset").on("click",function(){
     $("#start").show();
     index=0;
 })
-
-// function showPic(time,respo){
-
-
-// }
-
-//show pic if ans is wrigh or wrong
-
-
-// move to next question
-
-// get through all questions
-// show result - right wrong
-
-// track wins and losses
-
-//reset
-
-
-// NICE EXTRA FEATURES
-
-// timer
-// giphy for right wrongs
-
-
-//empty results
