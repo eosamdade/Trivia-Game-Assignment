@@ -31,11 +31,10 @@ var questions = [
         question:"Who developed the special theory of relativity?",
         choices: ["Nicolas Tesla","Albert Einstein","Isaac Newton","Aristotle"],
         answer: "Albert Einstein",
-        rightPhoto: "",
-        wrongPhoto: ""
+        rightPhoto: "https://media.giphy.com/media/yV5iknckcXcc/giphy.gif",
+        wrongPhoto: "https://media.giphy.com/media/TXgBQoz79pxMQ/giphy.gif"
     }
 ];
-
 
 var index = -1
 var rightAnswers = 0;
@@ -70,7 +69,6 @@ $('#start').on('click', function(){
     // show questions and choices
     $('#question').show();
     $('#choices').show();
-    
 
 })
 
@@ -178,27 +176,35 @@ $('body').on('click','.choice', function(){
         setTimeout(displayNextQuestion,3000);
     } 
     else {
-        //empty response
-        $("#response").empty();
-        $("giphy").empty();
-        // game over
-        console.log('game over');
-        
-        // show end results
-        $("#score").append(`CORRECT ANSWERS <p>${rightAnswers}</p>`);
-        $("#score").append(`WRONG ANSWERS <p>${wrongAnswers}</p>`);
-        $("#score").append(`UNANSWERED QUESTIONS <p>${unanswered}</p>`);
-        
 
-        //hide questions
-        $('#question').hide();
-        $('#choices').hide();
+        setTimeout(() => {
         
-        //show reset button
-        $("#reset").show()
+            //empty response
+            $("#response").empty();
+            $("giphy").empty();
+            // game over
+            console.log('game over');
+            
+            // show end results
+            $("#score").append(`CORRECT ANSWERS <p>${rightAnswers}</p>`);
+            $("#score").append(`WRONG ANSWERS <p>${wrongAnswers}</p>`);
+            $("#score").append(`UNANSWERED QUESTIONS <p>${unanswered}</p>`);
+            
 
-        //hide time
-        $("#time").hide()
+            //hide questions
+            $('#question').hide();
+            $('#choices').hide();
+            
+            //show reset button
+            $("#reset").show();
+
+            //hide time
+            $("#time").hide();
+
+            $("#giphy").hide();
+            
+        }, 2000);
+
     };
     
 })
@@ -207,5 +213,5 @@ $("#reset").on("click",function(){
     $("#reset").hide();
     $("#score").empty();
     $("#start").show();
-    index=0;
+    index=-1;
 })
